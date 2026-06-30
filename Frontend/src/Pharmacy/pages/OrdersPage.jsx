@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { fetchMyOrders, updateOrderStatus } from "../store/pharmacySlice";
 import OrderStatusBadge from "../Components/OrderStatusBadge";
 import { FiPackage } from "react-icons/fi";
-import socket from "../../../socket";
+import socket from "../../socket";
 
 export default function OrdersPage() {
   const dispatch  = useDispatch();
