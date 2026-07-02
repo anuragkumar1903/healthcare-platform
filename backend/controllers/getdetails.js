@@ -166,14 +166,15 @@ export const getTotalUsers = async (req, res) => {
 
 // Cached combined stats — used on landing page (public, no auth needed)
 let _statsCache = { data: null, expiresAt: 0 };
+export const clearStatsCache = () => { _statsCache = { data: null, expiresAt: 0 }; };
 export const getStats = async (req, res) => {
   try {
     if (_statsCache.data && Date.now() < _statsCache.expiresAt) {
       return res.status(200).json(_statsCache.data);
     }
     const [totalDoctors, totalUsers] = await Promise.all([
-      Doctor.estimatedDocumentCount(),  // uses collection metadata — much faster than countDocuments
-      User.estimatedDocumentCount(),
+      Doctor.countDocuments(),
+      User.countDocuments(),
     ]);
     _statsCache = { data: { success: true, totalDoctors, totalUsers }, expiresAt: Date.now() + 5 * 60 * 1000 };
     res.status(200).json(_statsCache.data);

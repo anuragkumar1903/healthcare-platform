@@ -79,6 +79,9 @@ export const getUserAppointments = async (req, res) => {
         const { userId } = req.params;
         if (!userId) return res.status(400).json({ success: false, message: "User ID is required" });
         if (!mongoose.Types.ObjectId.isValid(userId)) return res.status(404).json({ success: false, message: "No appointments found for this user" });
+        if (req.user?._id && String(req.user._id) !== String(userId)) {
+            return res.status(403).json({ success: false, message: "Forbidden. You can only access your own appointments." });
+        }
 
         // Use UTC midnight — MongoDB stores dates in UTC
         const currentDate = new Date();

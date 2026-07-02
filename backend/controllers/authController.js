@@ -59,7 +59,7 @@ export const registerDoctor = async (req, res) => {
   const { role, name, email, phone, username, bio, gender, mciNumber, department, experience, password, certificate, profession, image } = req.body;
 
   // Input validation
-  if (!name || !email || !phone || !username || !bio || !gender || !mciNumber || !department || !experience || !password || !certificate || !profession) {
+  if (!name || !email || !phone || !username || !bio || !gender || !mciNumber || !department || !experience || !password || !profession) {
     return res.status(400).json({ message: "All fields are required" });
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

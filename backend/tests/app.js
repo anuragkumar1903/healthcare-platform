@@ -15,6 +15,7 @@ app.use("/auth", authRoutes);
 app.use("/appointments", appointmentRoute);
 app.use("/doctors", doctorRoute);
 app.use("/monitor", monitorRoute);
+app.get("/health", (req, res) => res.status(200).json({ status: "ok", uptime: process.uptime() }));
 app.post("/send", (req, res) => res.status(200).send("ok"));
 
 export default app;
